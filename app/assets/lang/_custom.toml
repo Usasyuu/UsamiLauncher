@@ -11,8 +11,8 @@ mediaYouTubeURL = "#"
 mediaDiscordURL = "https://discord.com/channels/889873666714792046/"
 
 [ejs.settings]
-sourceGithubLink = "https://github.com/dscalZi/HeliosLauncher"
-supportLink = "https://github.com/dscalZi/HeliosLauncher/issues"
+sourceGithubLink = "https://github.com/Usasyuu/UsamiLauncher"
+supportLink = "https://github.com/Usasyuu/UsamiLauncher/issues"
 
 [ejs.welcome]
 welcomeHeader = "ようこそ！ Usamiランチャーへ！"
