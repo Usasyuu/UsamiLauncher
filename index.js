@@ -134,24 +134,23 @@ ipcMain.on(MSFT_OPCODE.OPEN_LOGIN, (ipcEvent, ...arguments_) => {
     })
 
     msftAuthWindow.on('closed', () => {
+        console.log('Windows closed')
         msftAuthWindow = undefined
     })
-
+    
     msftAuthWindow.on('close', () => {
+        console.log('Windows close')
         if(!msftAuthSuccess) {
             ipcEvent.reply(MSFT_OPCODE.REPLY_LOGIN, MSFT_REPLY_TYPE.ERROR, MSFT_ERROR.NOT_FINISHED, msftAuthViewOnClose)
         }
     })
 
     msftAuthWindow.webContents.on('did-navigate', (_, uri) => {
+        console.log('did-navigate')
         if (uri.startsWith(REDIRECT_URI_PREFIX)) {
-            let queries = uri.substring(REDIRECT_URI_PREFIX.length).split('#', 1).toString().split('&')
+            let url = new URL(uri)
             let queryMap = {}
-
-            queries.forEach(query => {
-                const [name, value] = query.split('=')
-                queryMap[name] = decodeURI(value)
-            })
+            url.searchParams.forEach((value, name) => queryMap[name] = value)
 
             ipcEvent.reply(MSFT_OPCODE.REPLY_LOGIN, MSFT_REPLY_TYPE.SUCCESS, queryMap, msftAuthViewSuccess)
 
@@ -225,6 +224,7 @@ ipcMain.on(MSFT_OPCODE.OPEN_LOGOUT, (ipcEvent, uuid, isLastAccount) => {
 let win
 
 function createWindow() {
+    console.log('Debug Starting')
 
     win = new BrowserWindow({
         width: 980,
