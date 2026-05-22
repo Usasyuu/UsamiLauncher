@@ -29,6 +29,9 @@ function initAutoUpdater(event, data) {
     if(isDev){
         autoUpdater.autoInstallOnAppQuit = false
         autoUpdater.updateConfigPath = path.join(__dirname, 'dev-app-update.yml')
+        autoUpdater.forceDevUpdateConfig = true
+        console.log('Check update')
+        autoUpdater.checkForUpdatesAndNotify()
     }
     if(process.platform === 'darwin'){
         autoUpdater.autoDownload = false
@@ -134,25 +137,22 @@ ipcMain.on(MSFT_OPCODE.OPEN_LOGIN, (ipcEvent, ...arguments_) => {
     })
 
     msftAuthWindow.on('closed', () => {
-        console.log('Windows closed')
         msftAuthWindow = undefined
     })
     
     msftAuthWindow.on('close', () => {
-        console.log('Windows close')
         if(!msftAuthSuccess) {
             ipcEvent.reply(MSFT_OPCODE.REPLY_LOGIN, MSFT_REPLY_TYPE.ERROR, MSFT_ERROR.NOT_FINISHED, msftAuthViewOnClose)
         }
     })
 
     msftAuthWindow.webContents.on('did-navigate', (_, uri) => {
-        console.log('did-navigate')
         if (uri.startsWith(REDIRECT_URI_PREFIX)) {
             let queryMap = {}
             
             new URL(uri).searchParams.forEach((v, k) => {
-                queryMap[k] = v;
-            });
+                queryMap[k] = v
+            })
             ipcEvent.reply(MSFT_OPCODE.REPLY_LOGIN, MSFT_REPLY_TYPE.SUCCESS, queryMap, msftAuthViewSuccess)
 
             msftAuthSuccess = true
