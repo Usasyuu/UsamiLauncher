@@ -148,9 +148,6 @@ ipcMain.on(MSFT_OPCODE.OPEN_LOGIN, (ipcEvent, ...arguments_) => {
     msftAuthWindow.webContents.on('did-navigate', (_, uri) => {
         console.log('did-navigate')
         if (uri.startsWith(REDIRECT_URI_PREFIX)) {
-            let url = new URL(uri)
-            let queryMap = {}
-            url.searchParams.forEach((value, name) => queryMap[name] = value)
             let queryMap = {}
             
             new URL(uri).searchParams.forEach((v, k) => {
