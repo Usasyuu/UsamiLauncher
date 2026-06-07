@@ -4,7 +4,7 @@ usernamePlaceholder = "ユーザー名"
 usernameEditButton = "編集"
 settingsTooltip = "設定"
 serverStatus = "サーバー"
-serverStatusPlaceholder = "OFFLINE"
+serverStatusPlaceholder = "オフライン"
 mojangStatus = "MOJANG ステータス"
 mojangStatusTooltipTitle = "サービス"
 mojangStatusNETitle = "Non&nbsp;Essential"
@@ -166,8 +166,8 @@ noSelection = "サーバーが選択されていません"
 loading = "Loading.."
 
 [js.landing.serverStatus]
-server = "Server"
-offline = "OFFLINE"
+server = "サーバー"
+offline = "オフライン"
 players = "Players"
 
 [js.landing.systemScan]
